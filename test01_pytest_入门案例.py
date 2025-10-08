@@ -25,4 +25,4 @@ class TestLogin:
 
     # 用例3：
     def test_login03(self):
-        print("# case03：登录成功")
+        print("case03：登录成功")
