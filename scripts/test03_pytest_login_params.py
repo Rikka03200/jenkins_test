@@ -16,6 +16,8 @@
 import time
 import config
 import pytest
+import tempfile
+import os
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
@@ -34,16 +36,35 @@ test_data = [
 class TestLogin:
     # 类前置处理
     def setup_class(self):
-        # 打开浏览器
-        self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        # 为每个测试创建独立的用户数据目录
+        self.temp_dir = tempfile.mkdtemp()
+        user_data_dir = os.path.join(self.temp_dir, "user-data")
+
+        # 配置Chrome选项
+        options = webdriver.ChromeOptions()
+        options.add_argument(f"--user-data-dir={user_data_dir}")
+        options.add_argument("--no-sandbox")  # Docker环境需要
+        options.add_argument("--disable-dev-shm-usage")  # Docker环境需要
+        options.add_argument("--headless")  # 无头模式，适合服务器环境
+
+        # 启动浏览器
+        self.driver = webdriver.Chrome(
+            service=ChromeService(ChromeDriverManager().install()),
+            options=options
+        )
         # driver = webdriver.Chrome()
         # 窗口最大化
         self.driver.maximize_window()
 
     # 类后置处理
     def teardown_class(self):
-        # 退出浏览器
-        self.driver.quit()
+        # 确保浏览器关闭
+        if hasattr(self, 'driver') and self.driver:
+            self.driver.quit()
+        # 清理临时目录
+        if hasattr(self, 'temp_dir') and os.path.exists(self.temp_dir):
+            import shutil
+            shutil.rmtree(self.temp_dir)
 
     # 方法前置处理
     def setup_method(self):
