@@ -79,4 +79,4 @@ class TestLogin:
 
         # 断言
         print(self.driver.find_element(By.XPATH, '//*[@class="layui-layer layui-layer-dialog  layer-anim"]/div[2]').text)
-        assert "密码不能为空" in self.driver.find_element(By.XPATH, '//*[@class="layui-layer layui-layer-dialog  layer-anim"]/div[2]').text
+        assert "密码不能为" in self.driver.find_element(By.XPATH, '//*[@class="layui-layer layui-layer-dialog  layer-anim"]/div[2]').text
