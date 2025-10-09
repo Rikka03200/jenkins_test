@@ -29,9 +29,9 @@ class TestLogin:
             options=options
         )
         # 窗口最大化
-        self.driver.maximize_window()
+        #self.driver.maximize_window()
         #隐式等待
-        self.driver.implicitly_wait(5)
+        self.driver.implicitly_wait(10)
 
     # 类后置处理
     def teardown_class(self):
@@ -79,4 +79,4 @@ class TestLogin:
 
         # 断言
         print(self.driver.find_element(By.XPATH, '//*[@class="layui-layer layui-layer-dialog  layer-anim"]/div[2]').text)
-        assert "密码不能为空" in self.driver.find_element(By.XPATH, '//*[@class="layui-layer layui-layer-dialog  layer-anim"]/div[2]').text
+        assert "666" in self.driver.find_element(By.XPATH, '//*[@class="layui-layer layui-layer-dialog  layer-anim"]/div[2]').text

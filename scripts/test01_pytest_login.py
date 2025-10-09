@@ -30,8 +30,8 @@ class TestLogin:
         )
         # driver = webdriver.Chrome()
         # 窗口最大化
-        self.driver.implicitly_wait(5)
-        self.driver.maximize_window()
+        self.driver.implicitly_wait(10)
+        #self.driver.maximize_window()
 
     # 类后置处理
     def teardown_class(self):

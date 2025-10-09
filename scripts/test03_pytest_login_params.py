@@ -54,7 +54,8 @@ class TestLogin:
         )
         # driver = webdriver.Chrome()
         # 窗口最大化
-        self.driver.maximize_window()
+        #self.driver.maximize_window()
+        self.driver.implicitly_wait(10)
 
     # 类后置处理
     def teardown_class(self):
@@ -73,8 +74,7 @@ class TestLogin:
 
     # 方法后置处理
     def teardown_method(self):
-        # 等待3秒
-        time.sleep(3)
+        pass
 
     @pytest.mark.parametrize("username, password, code", test_data)
     def test_login(self, username, password, code):
