@@ -18,6 +18,9 @@ class TestLogin:
 
         # 配置Chrome选项
         options = webdriver.ChromeOptions()
+        options.add_argument(f"--user-data-dir={user_data_dir}")
+        options.add_argument("--no-sandbox")  # Docker环境需要
+        options.add_argument("--disable-dev-shm-usage")  # Docker环境需要
         options.add_argument("--headless")  # 无头模式，适合服务器环境
 
         # 启动浏览器
